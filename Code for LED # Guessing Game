@@ -1,0 +1,30 @@
+import random
+import time
+import RPi.GPIO as GPIO
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+
+GPIO.setup(14, GPIO.OUT)
+GPIO.setup(15, GPIO.OUT)
+GPIO.setup(18, GPIO.OUT)
+
+number = random.randint(1,100)
+guess = 0
+while guess != number:
+  guess = int(input("enter guess: "))
+  if (guess < number):
+    print("guess higher!")
+    GPIO.output(15,True)
+    time.sleep(3)
+    GPIO.output(15,False)
+  elif (guess > number):
+    print("guess lower!")
+    GPIO.output(18,True)
+    time.sleep(3)
+    GPIO.output(18,False)
+else:
+  print("you won!")
+  GPIO.output(14,True)
+  time.sleep(3)
+  GPIO.output(14,False)
